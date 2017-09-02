@@ -4,6 +4,7 @@ buildscript {
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.6.RELEASE")
+        
     }
 }
 
@@ -25,6 +26,10 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 dependencies {
+	//
+	compile("com.google.maps:google-maps-services:0.1.20")
+	compile 'se.walkercrou:google-places-api-java:2.1.7'
+	
     // tag::jetty[]
     compile("org.springframework.boot:spring-boot-starter-web") {
         exclude module: "spring-boot-starter-tomcat"
@@ -33,7 +38,12 @@ dependencies {
     // end::jetty[]
     // tag::actuator[]
     compile("org.springframework.boot:spring-boot-starter-actuator")
+    
+    
     // end::actuator[]
-    testCompile("junit:junit")
+    testCompile("junit:junit") 
+    
+    //
+    compile 'com.squareup.okhttp3:okhttp:3.8.0'
+    compile 'com.google.code.gson:gson:2.8.0'
 }
-
