@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.maps.model.DistanceMatrix;
-import com.google.maps.model.GeocodingResult;
+import com.google.maps.model.LatLng;
 
 @RestController
 @RequestMapping("/geo")
@@ -26,7 +26,7 @@ public class GeoController {
 	}
 	
 	@RequestMapping(value = "/coordinates", method = RequestMethod.GET)
-	public @ResponseBody GeocodingResult[] getDistances(@RequestParam String address) {
+	public @ResponseBody LatLng getDistances(@RequestParam String address) {
 		return geoService.getLatLng(address);
 	}
 
