@@ -1,5 +1,7 @@
 package geo;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,10 +26,22 @@ public class GeoController {
 		return geoService.getDistances(distanceDTO.getSrcCoord().toModel(),
 				LatLngDTO.toModels(distanceDTO.getDestCoords()));
 	}
-	
+
+	@RequestMapping(value = "/nearby", method = RequestMethod.POST)
+	public @ResponseBody List<BranchDTO> getNearbyBranches(@RequestParam double srcLat, @RequestParam double srcLng,
+			@RequestBody List<BranchDTO> branches) {
+
+		return geoService.getDistances(new LatLng(srcLat, srcLng), branches);
+	}
+
 	@RequestMapping(value = "/coordinates", method = RequestMethod.GET)
 	public @ResponseBody LatLng getDistances(@RequestParam String address) {
 		return geoService.getLatLng(address);
+	}
+
+	@RequestMapping(value = "/enrich", method = RequestMethod.POST)
+	public @ResponseBody List<BranchDTO> getDistances(@RequestBody List<BranchDTO> branches) {
+		return geoService.enrichAddress(branches);
 	}
 
 	public GeoService getGeoService() {
