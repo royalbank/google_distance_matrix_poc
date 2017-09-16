@@ -1,0 +1,10 @@
+version: 0.2
+
+phases:
+  post_build:
+    commands:
+      - gradle build
+artifacts:
+  files:
+    - '**/*'
+  base-directory: 'build/libs'
