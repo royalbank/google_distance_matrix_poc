@@ -1,8 +1,7 @@
 buildscript {
 	ext {
-		springBootVersion = '1.5.2.RELEASE'
+		springBootVersion = '1.5.7.RELEASE'
 		wrapperVersion = '1.0.7.RELEASE'
-        shadowVersion = '2.0.1'
 	}
 	repositories {
 		jcenter()
@@ -12,8 +11,6 @@ buildscript {
 		maven { url "https://repo.spring.io/milestone" }
 	}
     dependencies {
-        classpath "com.github.jengelman.gradle.plugins:shadow:${shadowVersion}"
-		classpath("org.springframework.boot.experimental:spring-boot-thin-gradle-plugin:${wrapperVersion}")
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
 	}
 }
@@ -30,7 +27,13 @@ targetCompatibility = 1.8
 
 jar {
     baseName = 'mya-geo-be'
-    version =  '0.1.1'
+    version =  '0.1.5'
+    manifest {
+        attributes('Main-Class': 'geo.Application')
+    }
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
 }
 
 
@@ -42,9 +45,6 @@ repositories {
 }
 
 
-configurations {
-    testCompile.extendsFrom(compileOnly)
-}
 
 dependencies {
 	// Google APIs

@@ -6,10 +6,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 
-import groovy.util.logging.Log4j;
 
 @SpringBootApplication
-@Log4j
 public class Application {
     
     public static void main(String[] args) {
