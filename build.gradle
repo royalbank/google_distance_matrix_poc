@@ -1,11 +1,21 @@
 buildscript {
-    repositories {
-        mavenCentral()
-    }
+	ext {
+		springBootVersion = '1.5.2.RELEASE'
+		wrapperVersion = '1.0.7.RELEASE'
+        shadowVersion = '2.0.1'
+	}
+	repositories {
+		jcenter()
+		mavenLocal()
+		mavenCentral()
+		maven { url "https://repo.spring.io/snapshot" }
+		maven { url "https://repo.spring.io/milestone" }
+	}
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.6.RELEASE")
-        
-    }
+        classpath "com.github.jengelman.gradle.plugins:shadow:${shadowVersion}"
+		classpath("org.springframework.boot.experimental:spring-boot-thin-gradle-plugin:${wrapperVersion}")
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
 }
 
 apply plugin: 'java'
@@ -13,20 +23,31 @@ apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 
-jar {
-    baseName = 'gs-spring-boot'
-    version =  '0.1.0'
-}
-
-repositories {
-    mavenCentral()
-}
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
+
+jar {
+    baseName = 'mya-geo-be'
+    version =  '0.1.1'
+}
+
+
+repositories {
+	mavenLocal()
+	mavenCentral()
+	maven { url "https://repo.spring.io/snapshot" }
+	maven { url "https://repo.spring.io/milestone" }
+}
+
+
+configurations {
+    testCompile.extendsFrom(compileOnly)
+}
+
 dependencies {
-	//
+	// Google APIs
 	compile("com.google.maps:google-maps-services:0.1.20")
 	compile 'se.walkercrou:google-places-api-java:2.1.7'
 	
@@ -35,10 +56,10 @@ dependencies {
         exclude module: "spring-boot-starter-tomcat"
     }
     compile("org.springframework.boot:spring-boot-starter-jetty")
+    
     // end::jetty[]
     // tag::actuator[]
     compile("org.springframework.boot:spring-boot-starter-actuator")
-    
     
     // end::actuator[]
     testCompile("junit:junit") 
@@ -46,4 +67,5 @@ dependencies {
     //
     compile 'com.squareup.okhttp3:okhttp:3.8.0'
     compile 'com.google.code.gson:gson:2.8.0'
+	testCompile('org.springframework.boot:spring-boot-starter-test')
 }

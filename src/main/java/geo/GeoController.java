@@ -15,7 +15,7 @@ import com.google.maps.model.LatLng;
 
 @RestController
 @RequestMapping("/geo")
-public class GeoController {
+public class GeoController{
 
 	@Autowired
 	GeoService geoService;
@@ -51,5 +51,7 @@ public class GeoController {
 	public void setGeoService(GeoService geoService) {
 		this.geoService = geoService;
 	}
+
+	
 
 }
